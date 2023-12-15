@@ -23,7 +23,7 @@ const config: Config = {
         stdMediumPurple: "#805AD5",
         stdYellow: "#F6E05E",
         stdTurquoise: "#4FD1C5",
-        stdSlateGray: "#9CA3AF",
+        stdSlateGray: "#E5E5E5",
       },
     },
   },
