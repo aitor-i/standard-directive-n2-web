@@ -1,3 +1,4 @@
+import DayCalendar from "@/components/DayCalendar/DayCalendar";
 import NavigationMenu from "@/components/NavigationMenu/NavigationMenu";
 import React from "react";
 
@@ -14,7 +15,9 @@ export default function calendarPage() {
       </div>
       <div key="body" className="flex flex-1">
         <div className="border-r-2 border-stdSlateGray main">Tasks</div>
-        <div className="secondary">Calendar</div>
+        <div className="secondary">
+          <DayCalendar />
+        </div>
       </div>
     </main>
   );
