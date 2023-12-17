@@ -47,3 +47,8 @@ h2 {
 .debug {
   border: 1px solid red;
 }
+
+.calendarGreen {
+  background-color: #62c656;
+  border-color: #62c656;
+}
