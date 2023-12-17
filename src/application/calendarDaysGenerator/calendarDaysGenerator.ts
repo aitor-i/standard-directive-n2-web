@@ -1,9 +1,12 @@
-interface CalendarHour {
+export interface CalendarHour {
   hourDisplay: string;
   hour: number;
   color: string;
   eventName: string;
+  eventPosition?: EventPosition;
 }
+
+export type EventPosition = "single" | "first" | "middle" | "end";
 
 export function calendarDaysGenerator() {
   const calendarHours: CalendarHour[] = [];
