@@ -48,7 +48,44 @@ h2 {
   border: 1px solid red;
 }
 
-.calendarGreen {
-  background-color: #62c656;
-  border-color: #62c656;
+.color-green {
+  --color: #4caf50; /* Green */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
+}
+
+.color-red {
+  --color: #ff5252; /* Red */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
+}
+
+.color-yellow {
+  --color: #ffc107; /* Yellow */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #000;
+}
+
+.color-blue {
+  --color: #2196f3; /* Blue */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
+}
+
+.color-violet {
+  --color: #9c27b0; /* Violet */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
+}
+
+.color-extra {
+  --color: #ff9800; /* An additional color */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
 }
