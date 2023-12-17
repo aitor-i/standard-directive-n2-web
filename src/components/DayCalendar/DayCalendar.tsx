@@ -1,6 +1,9 @@
 import React from "react";
 import HourSlot from "./HourSlot/HourSlot";
-import { calendarDaysGenerator } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
+import {
+  CalendarHour,
+  calendarDaysGenerator,
+} from "@/application/calendarDaysGenerator/calendarDaysGenerator";
 
 export default function DayCalendar() {
   const today = new Date().toUTCString().split(" ");
@@ -9,9 +12,32 @@ export default function DayCalendar() {
   const weekDay = today[0];
 
   const hoursInADay = calendarDaysGenerator();
-  hoursInADay[0].eventName = "Task 1";
-  hoursInADay[0].color = "calendarGreen";
-  hoursInADay[1].color = "calendarGreen";
+
+  function setEventInCalendar(
+    hours: CalendarHour[],
+    color: string,
+    eventName: string,
+    timeStart: number,
+    timeEnd: number
+  ) {
+    hours.forEach((hour) => {
+      if (hour.hour === timeStart) {
+        hour.color = color;
+        hour.eventName = eventName;
+        hour.eventPosition = hour.hour === timeEnd ? "single" : "first";
+      }
+
+      if (hour.hour === timeEnd && hour.hour !== timeStart) {
+        hour.color = color;
+        hour.eventPosition = "end";
+      }
+
+      if (hour.hour > timeStart && hour.hour < timeEnd) {
+        hour.color = color;
+        hour.eventPosition = "middle";
+      }
+    });
+  }
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -31,6 +57,7 @@ export default function DayCalendar() {
               timeDisplay={hour.hourDisplay}
               eventName={hour.eventName}
               color={hour.color}
+              eventPosition={hour.eventPosition}
             />
           );
         })}
