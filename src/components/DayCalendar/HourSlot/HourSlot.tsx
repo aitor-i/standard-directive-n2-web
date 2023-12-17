@@ -3,7 +3,7 @@ import { EventPosition } from "@/application/calendarDaysGenerator/calendarDaysG
 interface Props {
   timeDisplay: string;
   eventName: string;
-  color: string;
+  color?: string;
   eventPosition?: EventPosition;
 }
 
@@ -29,7 +29,7 @@ export default function HourSlot({
       <div
         className={`block flex-1  border border-b-0 border-stdSlateGra ${color} ${eventRoundedStyles}  `}
       >
-        <b className="text-xs pl-2 text-stdSteelBlue">{eventName}</b>
+        <b className="text-xs pl-2 ">{eventName}</b>
       </div>
     </div>
   );

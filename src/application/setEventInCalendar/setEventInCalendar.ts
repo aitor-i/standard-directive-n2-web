@@ -1,8 +1,11 @@
-import { CalendarHour } from "../calendarDaysGenerator/calendarDaysGenerator";
+import {
+  CalendarHour,
+  EventColor,
+} from "../calendarDaysGenerator/calendarDaysGenerator";
 
 export function setEventInCalendar(
   hours: CalendarHour[],
-  color: string,
+  color: EventColor,
   eventName: string,
   timeStart: number,
   timeEnd: number

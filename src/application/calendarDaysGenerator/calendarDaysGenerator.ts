@@ -1,10 +1,18 @@
 export interface CalendarHour {
   hourDisplay: string;
   hour: number;
-  color: string;
+  color?: EventColor;
   eventName: string;
   eventPosition?: EventPosition;
 }
+
+export type EventColor =
+  | "color-green"
+  | "color-red"
+  | "color-yellow"
+  | "color-blue"
+  | "color-violet"
+  | "color-extra";
 
 export type EventPosition = "single" | "first" | "middle" | "end";
 
@@ -20,7 +28,6 @@ export function calendarDaysGenerator() {
     const calendarHour: CalendarHour = {
       hourDisplay: formatHourDisplay(),
       hour: index,
-      color: "",
       eventName: "",
     };
     calendarHours.push(calendarHour);
