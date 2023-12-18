@@ -25,6 +25,13 @@ export default function BatchTaskList() {
 
     event.currentTarget.reset();
   };
+
+  const deleteTask = (taskId: string) => {
+    setTasks((prevTasks) => {
+      return prevTasks.filter((task) => task.id !== taskId);
+    });
+  };
+
   return (
     <div className="flex flex-col flex-1 p-4 ">
       <h3>Batch Tasks</h3>
@@ -39,7 +46,7 @@ export default function BatchTaskList() {
             className="flex border rounded-sm align-middle justify-between pl-4 pr-4"
           >
             <p className="mt-auto mb-auto">{task.taskName}</p>
-            <button>X</button>
+            <button onClick={() => deleteTask(task.id)}>X</button>
           </li>
         ))}
       </ul>
