@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import BatchTaskItem from "./BatchTaskItem";
 
 interface Task {
   id: string;
@@ -43,13 +44,12 @@ export default function BatchTaskList() {
       </form>
       <ul>
         {tasks.map((task) => (
-          <li
+          <BatchTaskItem
             key={task.id}
-            className="flex border rounded-sm align-middle justify-between pl-4 pr-4"
-          >
-            <p className="mt-auto mb-auto">{task.taskName}</p>
-            <button onClick={() => deleteTask(task.id)}>X</button>
-          </li>
+            id={task.id}
+            onDelete={deleteTask}
+            taskName={task.taskName}
+          />
         ))}
       </ul>
     </div>
