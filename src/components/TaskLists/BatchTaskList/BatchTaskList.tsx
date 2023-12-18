@@ -5,6 +5,7 @@ interface Task {
   id: string;
   taskName: string;
   isCompleted: boolean;
+  isSelected: boolean;
 }
 
 export default function BatchTaskList() {
@@ -19,6 +20,7 @@ export default function BatchTaskList() {
       id,
       isCompleted: false,
       taskName: taskName?.toString() ?? "",
+      isSelected: false,
     };
     console.log("Tasks to add", taskToAdd);
     setTasks((prevTasks) => [taskToAdd, ...prevTasks]);
