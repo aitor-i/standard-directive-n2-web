@@ -3,13 +3,21 @@ import {
   EventColor,
 } from "../calendarDaysGenerator/calendarDaysGenerator";
 
-export function setEventInCalendar(
-  hours: CalendarHour[],
-  color: EventColor,
-  eventName: string,
-  timeStart: number,
-  timeEnd: number
-) {
+export interface SetEventInCalendarProps {
+  hours: CalendarHour[];
+  color: EventColor;
+  eventName: string;
+  timeStart: number;
+  timeEnd: number;
+}
+
+export function setEventInCalendar({
+  color,
+  eventName,
+  hours,
+  timeEnd,
+  timeStart,
+}: SetEventInCalendarProps) {
   hours.forEach((hour) => {
     if (hour.hour === timeStart) {
       hour.color = color;
@@ -27,4 +35,5 @@ export function setEventInCalendar(
       hour.eventPosition = "middle";
     }
   });
+  return hours;
 }
