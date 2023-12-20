@@ -39,8 +39,6 @@ export default function DailyTaskList() {
     };
     const updatedHours = setEventInCalendar({ hours, ...setEventProps });
     onSetHours(updatedHours);
-
-    closeModalHandler();
   };
 
   const onSelectHandler = (event: React.SyntheticEvent<HTMLSelectElement>) => {
@@ -60,14 +58,14 @@ export default function DailyTaskList() {
         +{" "}
       </button>
       {isModalOpen ? (
-        <div className="debug p-4">
-          <h4>Add a tasks</h4>
-          <form onSubmit={onSubmitHandler}>
+        <div className="border rounded p-4">
+          <h4 className="text-xl mb-4 font-medium">Add a tasks</h4>
+          <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
             <section>
               <label htmlFor="">Task Name</label>
               <input type="text" name="task-name" />
             </section>
-            <section>
+            <section className="flex flex-col">
               <label htmlFor="">Start Time</label>
               <select name="start-time" onChange={onSelectHandler}>
                 {freeHours.map((hour) => (
@@ -76,14 +74,18 @@ export default function DailyTaskList() {
                   </option>
                 ))}
               </select>
+            </section>
+            <section className="flex flex-col">
               <label htmlFor="">End time</label>
               <select name="end-time">
                 {availableEndHours.map((hour) => (
-                  <option key={hour.hour}>{hour.hourDisplay}</option>
+                  <option key={hour.hour} value={hour.hour}>
+                    {hour.hourDisplay}
+                  </option>
                 ))}
               </select>
             </section>
-            <section>
+            <section className="flex flex-col">
               <label htmlFor="">Set Color</label>
               <select name="color">
                 <option value="color-green">Green</option>
