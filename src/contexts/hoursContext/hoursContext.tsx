@@ -24,13 +24,13 @@ interface Props {
 
 export function HoursContextProvider({ children }: Props) {
   const [hours, setHours] = useState<CalendarHour[]>([]);
+  const [a, setA] = useState(false);
 
   const onSetHours = (hoursToSet: CalendarHour[]) => {
-    console.log("Set");
     setHours(hoursToSet);
+    setA((p) => !p);
   };
 
-  console.log("Render");
   useEffect(() => {
     const hoursInADay = calendarDaysGenerator();
     setHours(hoursInADay);
