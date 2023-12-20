@@ -1,6 +1,7 @@
 "use client";
 
 import { CalendarHour } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
+import { setEventInCalendar } from "@/application/setEventInCalendar/setEventInCalendar";
 import {
   HoursContext,
   SetEventInCalendarContextProps,
@@ -10,7 +11,7 @@ import React, { ReactEventHandler, useContext, useState } from "react";
 export default function DailyTaskList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([]);
-  const { setEventInCalendar, hours } = useContext(HoursContext);
+  const { hours, onSetHours } = useContext(HoursContext);
 
   const openModalHandler = () => {
     setIsModalOpen(true);
@@ -36,7 +37,9 @@ export default function DailyTaskList() {
       timeStart: parseInt(startTime as string),
       timeEnd: parseInt(endTime as string),
     };
-    setEventInCalendar(setEventProps);
+    const updatedHours = setEventInCalendar({ hours, ...setEventProps });
+    onSetHours(updatedHours);
+
     closeModalHandler();
   };
 
