@@ -2,6 +2,7 @@
 import DayCalendar from "@/components/DayCalendar/DayCalendar";
 import NavigationMenu from "@/components/NavigationMenu/NavigationMenu";
 import TaskLists from "@/components/TaskLists/TaskLists";
+import { HoursContextProvider } from "@/contexts/hoursContext/hoursContext";
 import React from "react";
 
 export default function calendarPage() {
@@ -15,14 +16,16 @@ export default function calendarPage() {
         <p>{dateString}</p>
         <NavigationMenu />
       </div>
-      <div key="body" className="flex flex-1">
-        <div className="border-r-2 border-stdSlateGray main flex">
-          <TaskLists />
+      <HoursContextProvider>
+        <div key="body" className="flex flex-1">
+          <div className="border-r-2 border-stdSlateGray main flex">
+            <TaskLists />
+          </div>
+          <div className="secondary">
+            <DayCalendar />
+          </div>
         </div>
-        <div className="secondary">
-          <DayCalendar />
-        </div>
-      </div>
+      </HoursContextProvider>
     </main>
   );
 }
