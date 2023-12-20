@@ -1,17 +1,16 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import HourSlot from "./HourSlot/HourSlot";
-import {
-  CalendarHour,
-  calendarDaysGenerator,
-} from "@/application/calendarDaysGenerator/calendarDaysGenerator";
+import { HoursContext } from "@/contexts/hoursContext/hoursContext";
 
 export default function DayCalendar() {
+  const { hours } = useContext(HoursContext);
   const today = new Date().toUTCString().split(" ");
   const day = today[1];
   const month = today[2];
   const weekDay = today[0];
 
-  const hoursInADay = calendarDaysGenerator();
+  const hoursInADay = hours;
 
   return (
     <div className="w-full h-full flex flex-col">
