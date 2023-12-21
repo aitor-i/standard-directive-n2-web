@@ -4,6 +4,7 @@ export interface CalendarHour {
   color?: EventColor;
   eventName: string;
   eventPosition?: EventPosition;
+  taskId?: number;
 }
 
 export type EventColor =
