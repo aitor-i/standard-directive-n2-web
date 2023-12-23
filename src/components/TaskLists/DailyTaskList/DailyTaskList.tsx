@@ -1,11 +1,15 @@
 "use client";
 
-import { CalendarHour } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
+import {
+  CalendarHour,
+  EventColor,
+} from "@/application/calendarDaysGenerator/calendarDaysGenerator";
 import { setEventInCalendar } from "@/application/setEventInCalendar/setEventInCalendar";
 import {
   HoursContext,
   SetEventInCalendarContextProps,
 } from "@/contexts/hoursContext/hoursContext";
+import { ColorKeys, colors } from "@/domain/colors/colors";
 import React, { ReactEventHandler, useContext, useState } from "react";
 
 export default function DailyTaskList() {
@@ -29,10 +33,12 @@ export default function DailyTaskList() {
     const startTime = formData.get("start-time");
     const endTime = formData.get("end-time");
     const taskName = formData.get("task-name");
-    const color = formData.get("color");
+    const color = formData.get("color")! as string;
+
+    let colorValue = color as ColorKeys;
 
     const setEventProps: SetEventInCalendarContextProps = {
-      color: "color-green",
+      color: colors[colorValue],
       eventName: taskName as string,
       timeStart: parseInt(startTime as string),
       timeEnd: parseInt(endTime as string),
@@ -94,7 +100,11 @@ export default function DailyTaskList() {
             <section className="flex flex-col">
               <label htmlFor="">Set Color</label>
               <select name="color">
-                <option value="color-green">Green</option>
+                {Object.keys(colors).map((colorName) => (
+                  <option key={colorName} value={colorName}>
+                    {colorName}
+                  </option>
+                ))}
               </select>
             </section>
             <div className="flex gap-4">

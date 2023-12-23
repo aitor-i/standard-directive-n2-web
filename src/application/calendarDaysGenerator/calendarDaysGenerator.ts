@@ -1,3 +1,5 @@
+import { colors } from "@/domain/colors/colors";
+
 export interface CalendarHour {
   hourDisplay: string;
   hour: number;
@@ -7,14 +9,15 @@ export interface CalendarHour {
   taskId?: number;
 }
 
-export type EventColor =
-  | "color-green"
-  | "color-red"
-  | "color-yellow"
-  | "color-blue"
-  | "color-violet"
-  | "color-extra";
+// export type EventColor =
+//   | "color-green"
+//   | "color-red"
+//   | "color-yellow"
+//   | "color-blue"
+//   | "color-violet"
+//   | "color-extra";
 
+export type EventColor = (typeof colors)[keyof typeof colors];
 export type EventPosition = "single" | "first" | "middle" | "end";
 
 export function calendarDaysGenerator() {
