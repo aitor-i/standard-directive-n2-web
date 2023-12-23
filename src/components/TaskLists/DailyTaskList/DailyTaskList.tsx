@@ -37,7 +37,13 @@ export default function DailyTaskList() {
       timeStart: parseInt(startTime as string),
       timeEnd: parseInt(endTime as string),
     };
-    const updatedHours = setEventInCalendar({ hours, ...setEventProps });
+    const taskId = parseInt((Math.random() * 100000).toFixed());
+
+    const updatedHours = setEventInCalendar({
+      hours,
+      taskId,
+      ...setEventProps,
+    });
     onSetHours(updatedHours);
   };
 
