@@ -62,6 +62,8 @@ export default function DailyTaskList() {
 
     setAvailableEndOurs(filteredEndHours);
   };
+
+  const dailyTasks = hours.filter((hour) => hour.eventName);
   return (
     <div className="flex flex-col flex-1 p-4 ">
       <h3>Daily Tasks</h3>
@@ -117,6 +119,10 @@ export default function DailyTaskList() {
           </form>
         </div>
       ) : null}
+
+      {dailyTasks.map((task) => (
+        <p key={task.taskId}>{task.eventName}</p>
+      ))}
     </div>
   );
 }
