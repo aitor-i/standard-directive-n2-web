@@ -50,8 +50,11 @@ export default function DailyTaskList() {
       taskId,
       ...setEventProps,
     });
-    if (taskName) onSetHours(updatedHours);
-    event.currentTarget.reset();
+    if (taskName) {
+      onSetHours(updatedHours);
+      event.currentTarget.reset();
+      closeModalHandler();
+    }
   };
 
   const onSelectHandler = (event: React.SyntheticEvent<HTMLSelectElement>) => {
