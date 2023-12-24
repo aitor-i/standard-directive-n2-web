@@ -5,6 +5,7 @@ interface Props {
   eventName: string;
   color?: string;
   eventPosition?: EventPosition;
+  isCompleted: boolean;
 }
 
 export default function HourSlot({
@@ -12,6 +13,7 @@ export default function HourSlot({
   eventName,
   color,
   eventPosition,
+  isCompleted,
 }: Props) {
   function calculatePositionStyes(eventPosition?: EventPosition) {
     if (eventPosition === "single") return "rounded";
@@ -27,7 +29,9 @@ export default function HourSlot({
         {timeDisplay}
       </p>
       <div
-        className={`block flex-1  border border-b-0 border-stdSlateGra ${color} ${eventRoundedStyles}  `}
+        className={`block flex-1  border border-b-0 border-stdSlateGra ${color} ${eventRoundedStyles} ${
+          isCompleted && " unSaturated"
+        } `}
       >
         <b className="text-xs pl-2 ">{eventName}</b>
       </div>

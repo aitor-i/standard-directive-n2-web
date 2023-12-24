@@ -26,6 +26,7 @@ export default function DayCalendar() {
         {hoursInADay.map((hour) => {
           return (
             <HourSlot
+              isCompleted={hour.isCompleted ?? false}
               key={hour.hour}
               timeDisplay={hour.hourDisplay}
               eventName={hour.eventName}

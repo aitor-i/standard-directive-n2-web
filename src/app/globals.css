@@ -156,3 +156,7 @@ button:hover {
 button:active {
   transform: scale(0.98); /* Slightly scale down on click */
 }
+
+.unSaturated {
+  filter: saturate(50%);
+}
