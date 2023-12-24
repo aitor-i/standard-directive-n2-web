@@ -16,7 +16,7 @@ export default function DailyTasksListItem({
 
   const changeTaskCompletedStatus = () => {
     return hours.map((task) => {
-      if ((task.taskId = taskId)) {
+      if (task.taskId === taskId) {
         task.isCompleted = !task.isCompleted;
         return task;
       }
