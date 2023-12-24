@@ -50,7 +50,8 @@ export default function DailyTaskList() {
       taskId,
       ...setEventProps,
     });
-    onSetHours(updatedHours);
+    if (taskName) onSetHours(updatedHours);
+    event.currentTarget.reset();
   };
 
   const onSelectHandler = (event: React.SyntheticEvent<HTMLSelectElement>) => {
@@ -110,11 +111,13 @@ export default function DailyTaskList() {
               </select>
             </section>
             <div className="flex gap-4">
-              <button onClick={() => console.log("AAAAA")} className="primary">
+              <button type="submit" className="primary">
                 Save
               </button>
 
-              <button className="danger">Dismiss</button>
+              <button type="reset" className="danger">
+                Dismiss
+              </button>
             </div>
           </form>
         </div>
