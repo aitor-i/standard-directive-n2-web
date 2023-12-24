@@ -11,6 +11,8 @@ import {
 } from "@/contexts/hoursContext/hoursContext";
 import { ColorKeys, colors } from "@/domain/colors/colors";
 import React, { ReactEventHandler, useContext, useState } from "react";
+import TaskLists from "../TaskLists";
+import DailyTasksListItem from "./DailyTaskListItem/DailyTasksListItem";
 
 export default function DailyTaskList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -127,7 +129,12 @@ export default function DailyTaskList() {
       ) : null}
 
       {dailyTasks.map((task) => (
-        <p key={task.taskId}>{task.eventName}</p>
+        <DailyTasksListItem
+          key={task.taskId}
+          isCompleted={task.isCompleted ?? false}
+          taskId={task.taskId!}
+          taskName={task.eventName}
+        />
       ))}
     </div>
   );

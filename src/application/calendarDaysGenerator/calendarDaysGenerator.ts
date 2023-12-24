@@ -7,6 +7,7 @@ export interface CalendarHour {
   eventName: string;
   eventPosition?: EventPosition;
   taskId?: number;
+  isCompleted?: boolean;
 }
 
 // export type EventColor =
