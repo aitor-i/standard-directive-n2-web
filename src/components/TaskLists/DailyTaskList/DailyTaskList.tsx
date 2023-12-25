@@ -70,7 +70,7 @@ export default function DailyTaskList() {
 
     const filteredEndHours = hours.filter(
       (hour) =>
-        !hour.color && hour.hour > parseInt(option) && hour.hour < nextTaskTime
+        !hour.color && hour.hour >= parseInt(option) && hour.hour < nextTaskTime
     );
 
     setAvailableEndOurs(filteredEndHours);
