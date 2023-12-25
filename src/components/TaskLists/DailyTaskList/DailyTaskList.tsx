@@ -62,8 +62,15 @@ export default function DailyTaskList() {
   const onSelectHandler = (event: React.SyntheticEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const option = event.currentTarget.value;
+    const nextTasks = hours.filter(
+      (hour) => hour.hour > parseInt(option) && hour.color
+    );
+
+    const nextTaskTime = nextTasks[0]?.hour ?? 25;
+
     const filteredEndHours = hours.filter(
-      (hour) => !hour.color && hour.hour > parseInt(option)
+      (hour) =>
+        !hour.color && hour.hour > parseInt(option) && hour.hour < nextTaskTime
     );
 
     setAvailableEndOurs(filteredEndHours);
@@ -81,9 +88,14 @@ export default function DailyTaskList() {
         <div className="border rounded p-4">
           <h4 className="text-xl mb-4 font-medium">Add a tasks</h4>
           <form className="flex flex-col gap-4" onSubmit={onSubmitHandler}>
-            <section>
+            <section className="flex flex-col">
               <label htmlFor="">Task Name</label>
-              <input type="text" name="task-name" />
+              <input
+                placeholder="Insert task name"
+                required
+                type="text"
+                name="task-name"
+              />
             </section>
             <section className="flex flex-col">
               <label htmlFor="">Start Time</label>
