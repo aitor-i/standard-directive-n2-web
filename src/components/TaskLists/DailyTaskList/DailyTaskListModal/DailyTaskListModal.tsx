@@ -21,7 +21,7 @@ export function DailyTaskListModal({
       <h4 className="text-xl mb-4 font-medium">Add a tasks</h4>
       <form className="flex flex-col gap-4" onSubmit={onSubmit}>
         <section className="flex flex-col">
-          <label htmlFor="">Task Name</label>
+          <label htmlFor="task-name">Task Name</label>
           <input
             placeholder="Insert task name"
             required
@@ -31,7 +31,7 @@ export function DailyTaskListModal({
           />
         </section>
         <section className="flex flex-col">
-          <label htmlFor="">Start Time</label>
+          <label htmlFor="start-time">Start Time</label>
           <select name="start-time" onChange={onSelect}>
             {freeHours.map((hour) => (
               <option value={hour.hour} key={hour.hour}>
@@ -41,7 +41,7 @@ export function DailyTaskListModal({
           </select>
         </section>
         <section className="flex flex-col">
-          <label htmlFor="">End time</label>
+          <label htmlFor="end-time">End time</label>
           <select name="end-time">
             {availableEndHours.map((hour) => (
               <option key={hour.hour} value={hour.hour}>
@@ -51,7 +51,7 @@ export function DailyTaskListModal({
           </select>
         </section>
         <section className="flex flex-col">
-          <label htmlFor="">Set Color</label>
+          <label htmlFor="color">Set Color</label>
           <select name="color">
             {Object.keys(colors).map((colorName) => (
               <option key={colorName} value={colorName}>
