@@ -16,17 +16,8 @@ import DailyTasksListItem from "./DailyTaskListItem/DailyTasksListItem";
 import { DailyTaskListModal } from "./DailyTaskListModal/DailyTaskListModal";
 
 export default function DailyTaskList() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([]);
   const { hours, onSetHours } = useContext(HoursContext);
-
-  const openModalHandler = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModalHandler = () => {
-    setIsModalOpen(false);
-  };
 
   const freeHours = hours.filter((hour) => !hour.color);
 
@@ -87,10 +78,6 @@ export default function DailyTaskList() {
     dialogRef.current?.showModal();
   };
 
-  const onBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
-    dialogCloseHandler();
-  };
-
   const dailyTasks = hours.filter((hour) => hour.eventName);
   return (
     <div className="flex flex-col flex-1 p-4 ">
@@ -100,11 +87,7 @@ export default function DailyTaskList() {
         +{" "}
       </button>
 
-      <dialog
-        className="w-1/2 rounded"
-        ref={dialogRef}
-        onClick={onBackdropClick}
-      >
+      <dialog className="w-1/2 rounded" ref={dialogRef}>
         <DailyTaskListModal
           availableEndHours={availableEndHours}
           freeHours={freeHours}
