@@ -77,7 +77,7 @@ export default function DailyTaskList() {
 
   const dialogOpenHandler = () => {
     const freeHours = hours.filter((hour) => !hour.color);
-    setAvailableEndOurs([freeHours[0]]);
+    setAvailableEndOurs(freeHours);
     dialogRef.current?.showModal();
   };
 
