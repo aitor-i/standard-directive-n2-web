@@ -27,6 +27,7 @@ export function DailyTaskListModal({
             required
             type="text"
             name="task-name"
+            maxLength={25}
           />
         </section>
         <section className="flex flex-col">
@@ -59,7 +60,7 @@ export function DailyTaskListModal({
             ))}
           </select>
         </section>
-        <div className="flex gap-4">
+        <div className="flex gap-4 self-end">
           <button type="submit" className="primary">
             Save
           </button>
