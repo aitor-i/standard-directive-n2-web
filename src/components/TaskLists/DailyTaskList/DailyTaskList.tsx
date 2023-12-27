@@ -76,7 +76,16 @@ export default function DailyTaskList() {
   };
 
   const dialogOpenHandler = () => {
-    const freeHours = hours.filter((hour) => !hour.color);
+    let firstTakenHour: number;
+    hours.forEach((hour) => {
+      if (hour.color) {
+        firstTakenHour = hour.hour;
+        return;
+      }
+    });
+    const freeHours = hours.filter(
+      (hour) => !hour.color && hour.hour < firstTakenHour
+    );
     setAvailableEndOurs(freeHours);
     dialogRef.current?.showModal();
   };
