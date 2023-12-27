@@ -30,9 +30,12 @@ export default function DailyTasksListItem({
   };
 
   return (
-    <div className="flex gap-4">
-      <span onClick={onClickTask}>{isCompleted ? "X" : "O"}</span>
-      <p>{taskName}</p>
+    <div className="flex gap-4 p-2 border border-stdSlateGray m-1">
+      <span className="cursor-pointer" onClick={onClickTask}>
+        {isCompleted ? "X" : "O"}
+      </span>
+      <p className="flex-1">{taskName}</p>
+      <span className="cursor-pointer">!</span>
     </div>
   );
 }
