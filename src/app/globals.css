@@ -147,6 +147,12 @@ button.danger {
   color: #fff;
 }
 
+/* Danger Button Styles */
+button.warning {
+  background-color: #ffc107; /* Red background color */
+  color: #000;
+}
+
 /* Hover Styles */
 button:hover {
   filter: brightness(1.1); /* Increase brightness on hover */
