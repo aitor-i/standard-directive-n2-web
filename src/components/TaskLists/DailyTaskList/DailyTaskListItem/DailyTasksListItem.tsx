@@ -54,9 +54,9 @@ export default function DailyTasksListItem({
       </span>
       <dialog className="w-1/2 rounded" ref={dialogRef}>
         <EditDailyTaskItemForm
-          onDismiss={() => {}}
-          onSelect={() => {}}
-          onSubmit={() => {}}
+          onDismiss={dialogCloseHandler}
+          onSelect={() => { }}
+          onSubmit={dialogCloseHandler}
           taskId={taskId}
         />
       </dialog>
