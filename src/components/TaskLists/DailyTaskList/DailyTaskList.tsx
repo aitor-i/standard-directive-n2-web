@@ -76,17 +76,20 @@ export default function DailyTaskList() {
   };
 
   const dialogOpenHandler = () => {
-    let firstTakenHour: number;
-    hours.forEach((hour) => {
-      if (hour.color) {
-        firstTakenHour = hour.hour;
-        return;
+    const freeHours = hours.filter((hour) => !hour.color);
+
+    const firstSequence: CalendarHour[] = [];
+    for (const event of freeHours) {
+      if (
+        firstSequence.length > 0 &&
+        event.hour !== firstSequence[firstSequence.length - 1].hour + 1
+      ) {
+        break;
       }
-    });
-    const freeHours = hours.filter(
-      (hour) => !hour.color && hour.hour < firstTakenHour
-    );
-    setAvailableEndOurs(freeHours);
+      firstSequence.push(event);
+    }
+
+    setAvailableEndOurs(firstSequence);
     dialogRef.current?.showModal();
   };
 
