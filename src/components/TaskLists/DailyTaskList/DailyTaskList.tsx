@@ -101,7 +101,6 @@ export default function DailyTaskList() {
         {" "}
         +{" "}
       </button>
-
       <dialog className="w-1/2 rounded" ref={dialogRef}>
         <DailyTaskListModal
           availableEndHours={availableEndHours}
