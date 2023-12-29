@@ -1,3 +1,4 @@
+import { CalendarHour } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
 import { HoursContext } from "@/contexts/hoursContext/hoursContext";
 import { Colors, colors } from "@/domain/colors/colors";
 import React, { useContext } from "react";
@@ -39,7 +40,25 @@ export function EditDailyTaskItemForm({
   const taskName = taskHours.at(0)?.eventName;
 
   const taskColor = findColorKey(colors, taskStartTime?.color ?? "");
-  console.log(taskColor);
+
+  const onDeleteHandler = (event: React.FormEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const cleanedHours: CalendarHour[] = hours.map((hour) => {
+      if (hour.taskId === taskId) {
+        const resetCalendarHour: CalendarHour = {
+          ...hour,
+          taskId: undefined,
+          color: undefined,
+          eventName: "",
+          eventPosition: undefined,
+          isCompleted: false,
+        };
+        return resetCalendarHour;
+      }
+      return hour;
+    });
+    onSetHours(cleanedHours);
+  };
 
   return (
     <div className="border rounded p-4">
@@ -100,6 +119,10 @@ export function EditDailyTaskItemForm({
 
           <button type="reset" className="warning" onClick={onDismiss}>
             Dismiss
+          </button>
+
+          <button className="danger" onClick={onDeleteHandler}>
+            Delete
           </button>
         </div>
       </form>
