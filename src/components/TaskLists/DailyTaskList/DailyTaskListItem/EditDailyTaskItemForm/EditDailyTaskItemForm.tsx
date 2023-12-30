@@ -37,8 +37,8 @@ export function EditDailyTaskItemForm({
 }: Props) {
   const { hours, onSetHours } = useContext(HoursContext);
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([])
+  const [freeHours, setFreeHours] = useState<CalendarHour[]>([])
 
-  const freeHours = hours;
   const taskHours = hours.filter((hour) => hour.taskId === taskId);
   const taskStartTime = taskHours.at(0);
   const taskEndTime = taskHours.at(-1);
@@ -108,7 +108,6 @@ export function EditDailyTaskItemForm({
 
 
   useEffect(() => {
-
     const nextTasks = hours.filter(
       (hour) => hour.hour > taskStartTime?.hour! && hour.color && hour.taskId !== taskId
     );
@@ -120,6 +119,9 @@ export function EditDailyTaskItemForm({
         !hour.color && hour.hour >= taskStartTime?.hour! && hour.hour < nextTaskTime || hour.taskId === taskId && hour.hour >= taskStartTime?.hour!
     );
     setAvailableEndOurs(filteredEndHours)
+
+    const filteredFreeHours = hours.filter(hour => !hour.color || hour.taskId === taskId)
+    setFreeHours(filteredFreeHours)
   }, [isModalOpen])
 
   return (
