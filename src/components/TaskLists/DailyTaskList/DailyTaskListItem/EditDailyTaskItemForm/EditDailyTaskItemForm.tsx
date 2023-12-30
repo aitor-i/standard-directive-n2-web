@@ -1,7 +1,8 @@
 import { CalendarHour } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
 import { cleanEventInCalendar } from "@/application/setEventInCalendar/cleanEventInCalendar";
-import { HoursContext } from "@/contexts/hoursContext/hoursContext";
-import { Colors, colors } from "@/domain/colors/colors";
+import { setEventInCalendar } from "@/application/setEventInCalendar/setEventInCalendar";
+import { HoursContext, SetEventInCalendarContextProps } from "@/contexts/hoursContext/hoursContext";
+import { ColorKeys, Colors, colors } from "@/domain/colors/colors";
 import React, { useContext, useState } from "react";
 
 interface Props {
@@ -45,6 +46,37 @@ export function EditDailyTaskItemForm({
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    console.log('submit')
+    const formData = new FormData(event.currentTarget);
+    const startTime = formData.get("start-time");
+    const endTime = formData.get("end-time");
+    const taskName = formData.get("task-name");
+    const color = formData.get("color")! as string;
+
+    let colorValue = color as ColorKeys;
+
+    const setEventProps: SetEventInCalendarContextProps = {
+      color: colors[colorValue],
+      eventName: taskName as string,
+      timeStart: parseInt(startTime as string),
+      timeEnd: parseInt(endTime as string),
+    };
+
+    const cleanedHours = cleanEventInCalendar(taskId, hours)
+
+    const updatedHours = setEventInCalendar({
+      hours: cleanedHours,
+      taskId,
+      ...setEventProps,
+    });
+
+    onSetHours(updatedHours);
+
+    // if (taskName) {
+    //   onSetHours(updatedHours);
+    //   event.currentTarget.reset();
+    //   setAvailableEndOurs([]);
+    // }
     onSubmit();
   }
 
@@ -96,7 +128,7 @@ export function EditDailyTaskItemForm({
             type="text"
             name="task-name"
             maxLength={25}
-            value={taskName}
+            defaultValue={taskName}
           />
         </section>
 
@@ -140,7 +172,7 @@ export function EditDailyTaskItemForm({
           </select>
         </section>
         <div className="flex gap-4 self-end">
-          <button type="submit" className="primary" onClick={onSaveHandler}>
+          <button type="submit" className="primary">
             Save
           </button>
 
