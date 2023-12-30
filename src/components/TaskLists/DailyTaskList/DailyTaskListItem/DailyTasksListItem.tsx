@@ -1,5 +1,5 @@
 import { HoursContext } from "@/contexts/hoursContext/hoursContext";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { EditDailyTaskItemForm } from "./EditDailyTaskItemForm/EditDailyTaskItemForm";
 
 interface Props {
@@ -14,6 +14,7 @@ export default function DailyTasksListItem({
   taskName,
 }: Props) {
   const { hours, onSetHours } = useContext(HoursContext);
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const changeTaskCompletedStatus = () => {
@@ -32,10 +33,13 @@ export default function DailyTasksListItem({
   };
 
   const dialogCloseHandler = () => {
+    setIsModalOpen(false)
     dialogRef.current?.close();
+
   };
 
   const dialogOpenHandler = () => {
+    setIsModalOpen(true)
     dialogRef.current?.showModal();
   };
 
@@ -54,6 +58,7 @@ export default function DailyTasksListItem({
       </span>
       <dialog className="w-1/2 rounded" ref={dialogRef}>
         <EditDailyTaskItemForm
+          isModalOpen={isModalOpen}
           onDismiss={dialogCloseHandler}
           onSelect={() => { }}
           onSubmit={dialogCloseHandler}

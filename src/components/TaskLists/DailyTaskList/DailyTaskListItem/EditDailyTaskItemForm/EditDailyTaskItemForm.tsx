@@ -3,13 +3,14 @@ import { cleanEventInCalendar } from "@/application/setEventInCalendar/cleanEven
 import { setEventInCalendar } from "@/application/setEventInCalendar/setEventInCalendar";
 import { HoursContext, SetEventInCalendarContextProps } from "@/contexts/hoursContext/hoursContext";
 import { ColorKeys, Colors, colors } from "@/domain/colors/colors";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 interface Props {
   onSubmit: () => void;
   onSelect: () => void;
   onDismiss: () => void;
   taskId: number;
+  isModalOpen: boolean
 }
 
 function findColorKey<T extends Record<string, string>>(
@@ -32,6 +33,7 @@ export function EditDailyTaskItemForm({
   onSubmit,
   onDismiss,
   taskId,
+  isModalOpen
 }: Props) {
   const { hours, onSetHours } = useContext(HoursContext);
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([])
@@ -72,19 +74,7 @@ export function EditDailyTaskItemForm({
 
     onSetHours(updatedHours);
 
-    // if (taskName) {
-    //   onSetHours(updatedHours);
-    //   event.currentTarget.reset();
-    //   setAvailableEndOurs([]);
-    // }
     onSubmit();
-  }
-
-  const onSaveHandler = (event: React.FormEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-
-    onSubmit();
-
   }
 
   const onDismissHandler = (event: React.FormEvent<HTMLButtonElement>) => {
@@ -115,6 +105,23 @@ export function EditDailyTaskItemForm({
 
     setAvailableEndOurs(filteredEndHours);
   }
+
+
+  useEffect(() => {
+
+    const nextTasks = hours.filter(
+      (hour) => hour.hour > taskStartTime?.hour! && hour.color && hour.taskId !== taskId
+    );
+
+    const nextTaskTime = nextTasks[0]?.hour ?? 25;
+
+    const filteredEndHours = hours.filter(
+      (hour) =>
+        !hour.color && hour.hour >= taskStartTime?.hour! && hour.hour < nextTaskTime || hour.taskId === taskId && hour.hour >= taskStartTime?.hour!
+    );
+    setAvailableEndOurs(filteredEndHours)
+  }, [isModalOpen])
+
   return (
     <div className="border rounded p-4">
       <h4 className="text-xl mb-4 font-medium">Edit tasks</h4>
