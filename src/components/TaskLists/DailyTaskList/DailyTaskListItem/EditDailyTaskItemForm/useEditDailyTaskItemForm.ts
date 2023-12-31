@@ -6,7 +6,7 @@ import { HoursContext, SetEventInCalendarContextProps } from "@/contexts/hoursCo
 import { ColorKeys, colors } from "@/domain/colors/colors";
 import { useContext, useEffect, useState } from "react";
 
-export const useEditDailyTaskItemForm = (taskId: number, isModalOpen: boolean) => {
+export const useEditDailyTaskItemForm = (taskId: number, isModalOpen: boolean, onSubmit: () => void, onDismiss: () => void) => {
   const { hours, onSetHours } = useContext(HoursContext);
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([])
   const [freeHours, setFreeHours] = useState<CalendarHour[]>([])
@@ -45,11 +45,13 @@ export const useEditDailyTaskItemForm = (taskId: number, isModalOpen: boolean) =
     });
 
     onSetHours(updatedHours);
+    onSubmit();
 
   }
 
   const onDismissHandler = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    onDismiss();
   };
 
   const onDeleteHandler = (event: React.FormEvent<HTMLButtonElement>) => {

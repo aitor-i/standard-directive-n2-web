@@ -19,7 +19,7 @@ export function EditDailyTaskItemForm({
   isModalOpen
 }: Props) {
 
-  const { taskName, taskEndTime, taskColor, freeHours, onDeleteHandler, onDismissHandler, onSubmitHandler, availableEndHours, onSelectTimeHandler, taskStartTime } = useEditDailyTaskItemForm(taskId, isModalOpen)
+  const { taskName, taskEndTime, taskColor, freeHours, onDeleteHandler, onDismissHandler, onSubmitHandler, availableEndHours, onSelectTimeHandler, taskStartTime } = useEditDailyTaskItemForm(taskId, isModalOpen, onSubmit, onDismiss)
 
   return (
     <div className="border rounded p-4">
