@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-
-export interface Task {
-  id: string;
-  taskName: string;
-  isCompleted: boolean;
-  isSelected: boolean;
-}
+import Task from 'domain/Task/Task'
 
 export const useBatchTaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
