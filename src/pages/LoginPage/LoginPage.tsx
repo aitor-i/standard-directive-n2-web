@@ -1,9 +1,18 @@
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
+import Link from 'next/link';
 
 import { redirect } from "next/navigation"
+
+interface LoginResponse {
+  message: string,
+  token?: string,
+  username?: string,
+  calendar: null
+}
+
 export const LoginPage = () => {
-  const { fetcher, response, fetchingStatus, responseObject } = useFetch();
+  const { fetcher, response, fetchingStatus, responseObject } = useFetch<LoginResponse>();
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 
     event.preventDefault();
@@ -23,7 +32,11 @@ export const LoginPage = () => {
 
   }
 
-  if (responseObject?.ok) redirect("/calendar")
+  if (responseObject?.ok && response?.token) {
+    window.localStorage.setItem("token", response.token);
+
+    redirect("/calendar")
+  }
   return (<section className='flex-1, flex flex-col  h-screen'>
     <NavigationMenu />
     <div className='flex mt-20 flex-1  self-center flex-col w-1/3'>
@@ -39,9 +52,13 @@ export const LoginPage = () => {
           <input type="password" name="password" />
         </section>
 
-        <section className='flex justify-end'>
-          <button className='primary' type='submit'>Login</button>
-        </section>
+        <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/register"}>Register</Link>
+        {fetchingStatus === "loading" ? 'Loading' :
+
+          <section className='flex justify-end'>
+            <button className='primary' type='submit'>Login</button>
+          </section>
+        }
       </form>
     </div>
 
