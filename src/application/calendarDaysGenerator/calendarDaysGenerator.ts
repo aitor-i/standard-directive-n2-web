@@ -3,10 +3,10 @@ import { colors } from "@/domain/colors/colors";
 export interface CalendarHour {
   hourDisplay: string;
   hour: number;
-  color?: EventColor;
+  color?: EventColor | null;
   eventName: string;
-  eventPosition?: EventPosition;
-  taskId?: number;
+  eventPosition?: EventPosition | null;
+  taskId?: number | null;
   isCompleted?: boolean;
 }
 
@@ -34,6 +34,10 @@ export function calendarDaysGenerator() {
       hourDisplay: formatHourDisplay(),
       hour: index,
       eventName: "",
+      color: null,
+      taskId: null,
+      isCompleted: false,
+      eventPosition: null
     };
     calendarHours.push(calendarHour);
   }
