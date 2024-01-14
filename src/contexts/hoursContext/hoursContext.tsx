@@ -15,6 +15,20 @@ export interface SetEventInCalendarContextProps {
   timeEnd: number;
 }
 
+interface ApiResponse {
+  message: string,
+  token?: string,
+  username?: string,
+  calendar?: CalendarHour[],
+}
+
+interface SaveCalendarBody {
+  calendar_date: string
+  calendar: CalendarHour[]
+  token: string
+}
+
+
 export const HoursContext = createContext({
   hours: [] as CalendarHour[],
   onSetHours: (hoursToSet: CalendarHour[]) => { },
@@ -25,16 +39,41 @@ interface Props {
 }
 
 export function HoursContextProvider({ children }: Props) {
-  const { fetcher, response } = useFetch();
+  const { fetcher, response, responseObject } = useFetch<ApiResponse>();
   const [hours, setHours] = useState<CalendarHour[]>([]);
   const [a, setA] = useState(false);
 
+  const saveCalendarsHander = (token: string) => {
+
+    const body: SaveCalendarBody = {
+      calendar_date: "2024-01-13",
+      calendar: hours,
+      token
+
+    }
+
+    const url = new URL("http://localhost:4040/calendar/save-events")
+    const fetchParams: FetchParams = {
+      url: url.toString(),
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body
+    }
+
+    fetcher(fetchParams)
+  }
+
   const onSetHours = (hoursToSet: CalendarHour[]) => {
+    const token = window.localStorage.getItem("token");
+
     setHours(hoursToSet);
     setA((p) => !p);
+
+    if (!token) redirect("/login");
+    saveCalendarsHander(token);
   };
 
-  const fetchHandler = (token: string) => {
+  const fetchHandler = async (token: string) => {
 
     const url = new URL("http://localhost:4040/calendar/get-calendar-by-date")
     const date = "2024-01-13"
@@ -44,8 +83,18 @@ export function HoursContextProvider({ children }: Props) {
       url: url.toString()
     }
 
-    fetcher(fetchParams);
-
+    fetch(url.toString()).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+      .then((data: ApiResponse) => {
+        setHours(data.calendar ?? []);
+      })
+      .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
   }
 
   useEffect(() => {
@@ -56,10 +105,6 @@ export function HoursContextProvider({ children }: Props) {
     if (!token) redirect("/login");
     fetchHandler(token);
 
-
-    // Fetch data from API
-    // Set data
-    //
   }, []);
 
   return (
