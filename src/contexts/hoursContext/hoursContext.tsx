@@ -43,7 +43,7 @@ export function HoursContextProvider({ children }: Props) {
   const [hours, setHours] = useState<CalendarHour[]>([]);
   const [a, setA] = useState(false);
 
-  const saveCalendarsHander = (token: string) => {
+  const saveCalendarsHander = (token: string, hours: CalendarHour[]) => {
 
     const currentDate = new Date();
     const dateString = currentDate.toISOString().split('T')[0];
@@ -52,7 +52,6 @@ export function HoursContextProvider({ children }: Props) {
       calendar_date: dateString,
       calendar: hours,
       token
-
     }
 
     const url = new URL("http://localhost:4040/calendar/save-events")
@@ -73,7 +72,7 @@ export function HoursContextProvider({ children }: Props) {
     setA((p) => !p);
 
     if (!token) redirect("/login");
-    saveCalendarsHander(token);
+    saveCalendarsHander(token, hoursToSet);
   };
 
   const fetchHandler = async (token: string) => {
