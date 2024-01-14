@@ -45,8 +45,11 @@ export function HoursContextProvider({ children }: Props) {
 
   const saveCalendarsHander = (token: string) => {
 
+    const currentDate = new Date();
+    const dateString = currentDate.toISOString().split('T')[0];
+
     const body: SaveCalendarBody = {
-      calendar_date: "2024-01-13",
+      calendar_date: dateString,
       calendar: hours,
       token
 
@@ -75,13 +78,13 @@ export function HoursContextProvider({ children }: Props) {
 
   const fetchHandler = async (token: string) => {
 
+    const currentDate = new Date();
+    const dateString = currentDate.toISOString().split('T')[0];
+
     const url = new URL("http://localhost:4040/calendar/get-calendar-by-date")
-    const date = "2024-01-13"
+    const date = dateString
     url.searchParams.append("date", date);
     url.searchParams.append("token", token);
-    const fetchParams: FetchParams = {
-      url: url.toString()
-    }
 
     fetch(url.toString()).then(response => {
       if (!response.ok) {
