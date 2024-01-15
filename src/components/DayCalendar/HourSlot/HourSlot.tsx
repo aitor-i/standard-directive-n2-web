@@ -3,8 +3,8 @@ import { EventPosition } from "@/application/calendarDaysGenerator/calendarDaysG
 interface Props {
   timeDisplay: string;
   eventName: string;
-  color?: string;
-  eventPosition?: EventPosition;
+  color?: string | null;
+  eventPosition?: EventPosition | null;
   isCompleted: boolean;
 }
 
@@ -15,7 +15,7 @@ export default function HourSlot({
   eventPosition,
   isCompleted,
 }: Props) {
-  function calculatePositionStyes(eventPosition?: EventPosition) {
+  function calculatePositionStyes(eventPosition?: EventPosition | null) {
     if (eventPosition === "single") return "rounded";
     if (eventPosition === "first") return "rounded-t-lg";
     if (eventPosition == "end") return "rounded-b-lg";
@@ -29,9 +29,8 @@ export default function HourSlot({
         {timeDisplay}
       </p>
       <div
-        className={`block flex-1  border border-b-0 border-stdSlateGra ${color} ${eventRoundedStyles} ${
-          isCompleted && " unSaturated"
-        } `}
+        className={`block flex-1  border border-b-0 border-stdSlateGra ${color} ${eventRoundedStyles} ${isCompleted && " unSaturated"
+          } `}
       >
         <b className="text-xs pl-2 ">{eventName}</b>
       </div>
