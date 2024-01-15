@@ -28,19 +28,28 @@ const getDateStrings = (isEditMode: boolean) => {
 }
 
 export default function DayCalendar() {
-  const { hours, isEditMode } = useContext(HoursContext);
+  const { hours, isEditMode, setIsEditMode } = useContext(HoursContext);
   const { day, month, weekDay } = getDateStrings(isEditMode);
   const hoursInADay = hours;
 
+  const onTomorrowClickHandler = () => {
+
+    setIsEditMode(true)
+  }
+
+  const onGobackClickHandler = () => { setIsEditMode(false) }
+
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="flex justify-center w-full border-b-2 border-stdSlateGray p-2 ">
+      <div className="flex gap-8 align-middle justify-center w-full border-b-2 border-stdSlateGray p-2 ">
+        <section className="self-center cursor-pointer" onClick={onGobackClickHandler} > O== </section>
         <div className={isEditMode ? "text-red-700" : ""} >
           <p className="text-xl text-stdSteelBlue">{month}</p>
           <p className="text-xl">
             {day} {weekDay}
           </p>
         </div>
+        <section className="self-center cursor-pointer" onClick={onTomorrowClickHandler}> ==D </section>
       </div>
       <div className="flex flex-col  p-2  flex-1">
         {hoursInADay.map((hour) => {

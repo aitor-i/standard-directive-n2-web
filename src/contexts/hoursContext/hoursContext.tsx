@@ -124,7 +124,7 @@ export function HoursContextProvider({ children }: Props) {
     if (!token) redirect("/login");
     fetchHandler(token);
 
-  }, []);
+  }, [isEditMode]);
 
   return (
     <HoursContext.Provider value={{ hours, onSetHours, setIsEditMode, isEditMode }}>
