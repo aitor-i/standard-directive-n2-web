@@ -32,21 +32,39 @@ interface SaveCalendarBody {
 export const HoursContext = createContext({
   hours: [] as CalendarHour[],
   onSetHours: (hoursToSet: CalendarHour[]) => { },
+  setIsEditMode: (isEditMode: boolean) => { },
+  isEditMode: false,
 });
 
 interface Props {
   children: ReactNode;
 }
 
+const getWorkingDateString = (isEditMode: boolean) => {
+
+  const currentDate = new Date();
+  const todayString = currentDate.toISOString().split('T')[0];
+  if (!isEditMode) return todayString;
+  const tomorrow: Date = new Date(currentDate);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dateTomorrow: string = tomorrow.toISOString().split('T')[0];
+  return dateTomorrow;
+}
+
 export function HoursContextProvider({ children }: Props) {
   const { fetcher, response, responseObject } = useFetch<ApiResponse>();
   const [hours, setHours] = useState<CalendarHour[]>([]);
   const [a, setA] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false)
+
+  const setEditModeHandler = (isEditMode: boolean) => {
+
+    setIsEditMode(isEditMode)
+  }
 
   const saveCalendarsHander = (token: string, hours: CalendarHour[]) => {
 
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().split('T')[0];
+    const dateString = getWorkingDateString(isEditMode)
 
     const body: SaveCalendarBody = {
       calendar_date: dateString,
@@ -77,8 +95,7 @@ export function HoursContextProvider({ children }: Props) {
 
   const fetchHandler = async (token: string) => {
 
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().split('T')[0];
+    const dateString = getWorkingDateString(isEditMode);
 
     const url = new URL("http://localhost:4040/calendar/get-calendar-by-date")
     const date = dateString
@@ -110,7 +127,7 @@ export function HoursContextProvider({ children }: Props) {
   }, []);
 
   return (
-    <HoursContext.Provider value={{ hours, onSetHours }}>
+    <HoursContext.Provider value={{ hours, onSetHours, setIsEditMode, isEditMode }}>
       {children}
     </HoursContext.Provider>
   );
