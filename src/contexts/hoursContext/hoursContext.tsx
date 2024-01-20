@@ -7,6 +7,7 @@ import {
 import { FetchParams, useFetch } from "@/hooks/useFetch/useFeltch";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { redirect } from "next/navigation"
+import { ApiResponse } from "@/domain/models/ApiResponse";
 
 export interface SetEventInCalendarContextProps {
   color: EventColor;
@@ -15,12 +16,6 @@ export interface SetEventInCalendarContextProps {
   timeEnd: number;
 }
 
-interface ApiResponse {
-  message: string,
-  token?: string,
-  username?: string,
-  calendar?: CalendarHour[],
-}
 
 interface SaveCalendarBody {
   calendar_date: string
