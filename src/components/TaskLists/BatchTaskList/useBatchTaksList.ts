@@ -3,8 +3,7 @@ import { TasksContext } from "@/contexts/hoursContext/tasksContext";
 import { Task } from "@/domain/Task/Task";
 
 export const useBatchTaskList = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const { onSetTasks } = useContext(TasksContext);
+  const { onSetTasks, tasks } = useContext(TasksContext);
   const taskSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 
     event.preventDefault();
@@ -18,19 +17,15 @@ export const useBatchTaskList = () => {
       taskName: taskName?.toString() ?? "",
       isSelected: false,
     };
-    setTasks((prevTasks) => {
 
-      onSetTasks([taskToAdd, ...prevTasks])
-      return [taskToAdd, ...prevTasks]
-    });
+    onSetTasks([taskToAdd, ...tasks])
 
     event.currentTarget.reset();
   };
 
   const deleteTask = (taskId: string) => {
-    setTasks((prevTasks) => {
-      return prevTasks.filter((task) => task.id !== taskId);
-    });
+    onSetTasks(tasks.filter((task) => task.id !== taskId))
   };
+
   return { deleteTask, taskSubmitHandler, tasks }
 }
