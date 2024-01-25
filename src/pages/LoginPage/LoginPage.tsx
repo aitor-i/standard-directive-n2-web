@@ -1,3 +1,4 @@
+import { isValidEmail } from '@/application/isValidEmail/isValidEmail';
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
 import Link from 'next/link';
@@ -20,11 +21,13 @@ export const LoginPage = () => {
     const username = formData.get("username")?.valueOf() ?? "";
     const password = formData.get("password")?.valueOf() ?? "";
 
+    const body = isValidEmail(username.toString()) ? { email: username, password } : { username, password }
+
     const fetchParams: FetchParams = {
       url: "http://localhost:4040/users/login",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: { username, password }
+      body: body
 
     }
 
