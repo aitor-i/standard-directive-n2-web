@@ -99,6 +99,7 @@ export function HoursContextProvider({ children }: Props) {
 
     fetch(url.toString()).then(response => {
       if (!response.ok) {
+        window.localStorage.removeItem("token")
         throw new Error('Network response was not ok');
       }
       return response.json();
