@@ -94,6 +94,14 @@ h4{
   border-color: var(--color);
   color: #fff;
 }
+input{
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
 
 input[type="text"] {
   padding: 0.5rem;
@@ -121,13 +129,13 @@ select {
 }
 
 /* Focus Styles */
-input[type="text"]:focus {
+input:focus {
   border-color: #4caf50; /* Green border color on focus */
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2); /* Green box shadow on focus */
 }
 
 /* Error Styles (Example) */
-input[type="text"].error {
+input.error {
   border-color: #ff5252; /* Red border color for error state */
 }
 
