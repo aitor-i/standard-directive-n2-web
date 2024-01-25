@@ -1,7 +1,7 @@
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
 import Link from 'next/link';
-import React from 'react'
+import React, { useRef } from 'react'
 import { redirect } from "next/navigation"
 
 interface RegisterResponse {
@@ -14,18 +14,36 @@ interface RegisterResponse {
 
 export const RegisterPage = (props: {}) => {
   const { fetchingStatus, fetcher, response, responseObject } = useFetch<RegisterResponse>();
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    emailRef.current?.classList.remove("error")
+    passwordRef.current?.classList.remove("error")
+
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username")?.valueOf() ?? "";
     const password = formData.get("password")?.valueOf() ?? "";
+    const rePassword = formData.get("confirm-password")?.valueOf() ?? "";
+    const email = formData.get("email")?.valueOf() ?? "";
+    const reEmail = formData.get("re-email")?.valueOf() ?? "";
+
+    if (email.toString() !== reEmail.toString()) {
+      emailRef.current?.classList.add("error")
+      return
+    }
+
+    if (password.toString() !== rePassword.toString()) {
+      passwordRef.current?.classList.add("error")
+      return
+    }
 
     const fetchParams: FetchParams = {
-      url: "http://localhost:4040/users/register",
+      url: "http://localhost:4040/users/register-user",
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: { username, password }
+      body: { username, password, email }
 
     }
 
@@ -48,12 +66,20 @@ export const RegisterPage = (props: {}) => {
           <input type="text" name="username" />
         </section>
         <section className='flex-col flex'>
+          <label>Email</label>
+          <input ref={emailRef} type="email" name="email" />
+        </section>
+        <section className='flex-col flex'>
+          <label>Repeat email</label>
+          <input ref={emailRef} type="email" name="re-email" />
+        </section>
+        <section className='flex-col flex'>
           <label>Password</label>
-          <input type="password" name="password" />
+          <input ref={passwordRef} type="password" name="password" />
         </section>
         <section className='flex-col flex'>
           <label>Confirm password</label>
-          <input type="password" name="confirm-password" />
+          <input ref={passwordRef} type="password" name="confirm-password" />
         </section>
 
         <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/login"}>Login</Link>
