@@ -1,0 +1,9 @@
+.success{ 
+  background-color: var(--stdGreen);
+  opacity: 0.9;
+  background-color: #52A842;
+  color: #fff;
+  font-weight: 600;
+  /* background-color: red;  */
+
+}
