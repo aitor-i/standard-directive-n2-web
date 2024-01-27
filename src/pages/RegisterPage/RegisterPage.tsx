@@ -1,8 +1,9 @@
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
 import Link from 'next/link';
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { redirect } from "next/navigation"
+import { passwordValidation } from '@/application/passwordValidation/passwordValidation';
 
 interface RegisterResponse {
   message: string,
@@ -14,13 +15,16 @@ interface RegisterResponse {
 
 export const RegisterPage = (props: {}) => {
   const { fetchingStatus, fetcher, response, responseObject } = useFetch<RegisterResponse>();
+  const [errorMessage, setErrorMessage] = useState<String>()
   const passwordRef = useRef<HTMLInputElement>(null)
+  const rePasswordRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     emailRef.current?.classList.remove("error")
     passwordRef.current?.classList.remove("error")
+    rePasswordRef.current?.classList.remove("error")
 
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username")?.valueOf() ?? "";
@@ -29,13 +33,17 @@ export const RegisterPage = (props: {}) => {
     const email = formData.get("email")?.valueOf() ?? "";
     const reEmail = formData.get("re-email")?.valueOf() ?? "";
 
+    const passwordValidationResponse = passwordValidation(password.toString());
+
     if (email.toString() !== reEmail.toString()) {
       emailRef.current?.classList.add("error")
       return
     }
 
-    if (password.toString() !== rePassword.toString()) {
+    if (password.toString() !== rePassword.toString() || !passwordValidationResponse.valid) {
+      setErrorMessage(passwordValidationResponse.message)
       passwordRef.current?.classList.add("error")
+      rePasswordRef.current?.classList.add("error")
       return
     }
 
@@ -57,7 +65,7 @@ export const RegisterPage = (props: {}) => {
 
   return (<section className='flex-1, flex flex-col  h-screen'>
     <NavigationMenu />
-    <div className='flex mt-20 flex-1  self-center flex-col w-1/3'>
+    <div className='flex mt-20 flex-1  self-center flex-col w-1/3 '>
 
       <h4>Register</h4>
       <form onSubmit={submitHandler} className=' flex flex-col gap-4'>
@@ -76,10 +84,11 @@ export const RegisterPage = (props: {}) => {
         <section className='flex-col flex'>
           <label>Password</label>
           <input ref={passwordRef} type="password" name="password" />
+          {errorMessage && <p className='text-xs text-red-500'>{errorMessage}</p>}
         </section>
         <section className='flex-col flex'>
           <label>Confirm password</label>
-          <input ref={passwordRef} type="password" name="confirm-password" />
+          <input ref={rePasswordRef} type="password" name="confirm-password" />
         </section>
 
         <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/login"}>Login</Link>
