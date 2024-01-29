@@ -8,17 +8,19 @@
   --background-end-rgb: 255, 255, 255;
 
   --background-color: #ffffff;
+  --white: #fff;
   --black: #020202;
-  --stdGreen: "#52A842";
-  --stdLimeGreen: "#62C656";
-  --stdRichBlack: "#1A202C";
-  --stdSteelBlue: "#475569";
-  --stdLightCoral: "#F56565";
-  --stdSteelBlue2: "#3182CE";
-  --stdMediumPurple: "#805AD5";
-  --stdYellow: "#F6E05E";
-  --stdTurquoise: "#4FD1C5";
-  --stdSlateGray: "#E5E5E5";
+  --stdGreen: #52A842;
+  --stdRed: #ff5252;
+  --stdLimeGreen: #62C656;
+  --stdRichBlack: #1A202C;
+  --stdSteelBlue: #475569;
+  --stdLightCoral: #F56565;
+  --stdSteelBlue2: #3182CE;
+  --stdMediumPurple: #805AD5;
+  --stdYellow: #F6E05E;
+  --stdTurquoise: #4FD1C5;
+  --stdSlateGray: #E5E5E5;
 
 }
 
