@@ -1,9 +1,49 @@
-.success{ 
-  background-color: var(--stdGreen);
+.t-success{ 
+  background-color:var(--stdGreen) ;
+  color: var(--white);
   opacity: 0.9;
-  background-color: #52A842;
-  color: #fff;
   font-weight: 600;
-  /* background-color: red;  */
+}
+.t-error{ 
+  background-color:var(--stdRed) ;
+  color: var(--white);
+  opacity: 0.9;
+  font-weight: 600;
+}
+.t-warning{ 
+  background-color:var(--stdYellow) ;
+  color: var(--black);
+  opacity: 0.9;
+  font-weight: 600;
+}
 
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toast {
+  animation: slideIn 0.5s ease forwards;
+}
+
+.toast-hide {
+  animation: slideOut 0.5s ease forwards;
 }
