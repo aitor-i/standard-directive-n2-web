@@ -1,5 +1,6 @@
 import { isValidEmail } from '@/application/isValidEmail/isValidEmail';
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
+import { Toast } from '@/components/Toast/Toast';
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
 import Link from 'next/link';
 
@@ -42,6 +43,7 @@ export const LoginPage = () => {
   }
   return (<section className='flex-1, flex flex-col  h-screen'>
     <NavigationMenu />
+    {response?.message && <Toast message={response.message} type={responseObject?.ok ? 't-success' : 't-error'} />}
     <div className='flex mt-20 flex-1  self-center flex-col w-1/3'>
 
       <h4>Login</h4>

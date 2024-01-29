@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useRef, useState } from 'react'
 import { redirect } from "next/navigation"
 import { passwordValidation } from '@/application/passwordValidation/passwordValidation';
+import { Toast } from '@/components/Toast/Toast';
 
 interface RegisterResponse {
   message: string,
@@ -65,7 +66,11 @@ export const RegisterPage = (props: {}) => {
 
   return (<section className='flex-1, flex flex-col  h-screen'>
     <NavigationMenu />
-    <div className='flex mt-20 flex-1  self-center flex-col w-1/3 '>
+    {
+
+      response?.message && <Toast type={responseObject?.ok ? 't-success' : 't-error'} message={response.message} />
+    }
+    <div className='flex mt-20 flex-1  self-center flex-col w-1/2 lg:w-1/3 '>
 
       <h4>Register</h4>
       <form onSubmit={submitHandler} className=' flex flex-col gap-4'>
