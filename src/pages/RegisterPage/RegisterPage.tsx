@@ -21,6 +21,8 @@ export const RegisterPage = (props: {}) => {
   const rePasswordRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
 
+  const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
+
   const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     emailRef.current?.classList.remove("error")
@@ -49,7 +51,7 @@ export const RegisterPage = (props: {}) => {
     }
 
     const fetchParams: FetchParams = {
-      url: "http://localhost:4040/users/register-user",
+      url: `${baseUrl}/users/register-user`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: { username, password, email }

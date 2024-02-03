@@ -52,6 +52,8 @@ export function HoursContextProvider({ children }: Props) {
   const [a, setA] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false)
 
+  const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
+
   const setEditModeHandler = (isEditMode: boolean) => {
 
     setIsEditMode(isEditMode)
@@ -67,7 +69,7 @@ export function HoursContextProvider({ children }: Props) {
       token
     }
 
-    const url = new URL("http://localhost:4040/calendar/save-events")
+    const url = new URL(`${baseUrl}/calendar/save-events`)
     const fetchParams: FetchParams = {
       url: url.toString(),
       method: 'POST',

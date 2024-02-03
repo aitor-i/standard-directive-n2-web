@@ -15,8 +15,9 @@ interface LoginResponse {
 
 export const LoginPage = () => {
   const { fetcher, response, fetchingStatus, responseObject } = useFetch<LoginResponse>();
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
 
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const username = formData.get("username")?.valueOf() ?? "";
@@ -25,7 +26,7 @@ export const LoginPage = () => {
     const body = isValidEmail(username.toString()) ? { email: username, password } : { username, password }
 
     const fetchParams: FetchParams = {
-      url: "http://localhost:4040/users/login",
+      url: `${baseUrl}/users/login`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: body

@@ -26,6 +26,8 @@ export function TasksContextProvider({ children }: Props) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const { fetcher, response, responseObject } = useFetch<ApiResponse>()
 
+  const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
+
   const postTasks = (token: String, tasks: Task[]) => {
     const body: RequestBody = {
       token,
@@ -34,7 +36,7 @@ export function TasksContextProvider({ children }: Props) {
 
     const params: FetchParams = {
       method: 'POST',
-      url: "http://localhost:4040/tasks/save-tasks",
+      url: `${baseUrl}/tasks/save-tasks`,
       body,
       headers: { "Content-Type": "application/json" },
 
