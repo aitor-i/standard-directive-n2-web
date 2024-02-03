@@ -13,7 +13,7 @@ interface LoginResponse {
   calendar: null
 }
 
-export const LoginPage = () => {
+export default function LoginPage() {
   const { fetcher, response, fetchingStatus, responseObject } = useFetch<LoginResponse>();
   const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
 

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import AddEventImg from '../../../public/media/Calendar-add-event.jpg'
 import CompleteTasktImg from '../../../public/media/Events-done.jpg'
 
-export function HomePage() {
+export default function HomePage() {
   return (
     <>
       <main className=' h-screen'>

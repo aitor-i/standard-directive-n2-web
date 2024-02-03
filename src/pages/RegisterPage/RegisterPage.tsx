@@ -14,7 +14,7 @@ interface RegisterResponse {
 }
 
 
-export const RegisterPage = (props: {}) => {
+export default function RegisterPage(props: {}) {
   const { fetchingStatus, fetcher, response, responseObject } = useFetch<RegisterResponse>();
   const [errorMessage, setErrorMessage] = useState<String>()
   const passwordRef = useRef<HTMLInputElement>(null)
