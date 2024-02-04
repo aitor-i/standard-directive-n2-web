@@ -1,7 +1,6 @@
 import { CalendarHour } from "@/application/calendarDaysGenerator/calendarDaysGenerator";
 import { setEventInCalendar } from "@/application/setEventInCalendar/setEventInCalendar";
 import { HoursContext, SetEventInCalendarContextProps } from "@/contexts/hoursContext/hoursContext";
-import { TasksContext } from "@/contexts/hoursContext/tasksContext";
 import { ColorKeys, colors } from "@/domain/colors/colors";
 import { useContext, useRef, useState } from "react";
 
@@ -9,11 +8,9 @@ export const useDailyTaskList = () => {
 
   const [availableEndHours, setAvailableEndOurs] = useState<CalendarHour[]>([]);
   const { hours, onSetHours } = useContext(HoursContext);
-  const { tasks } = useContext(TasksContext);
 
-  console.log(tasks)
-
-  const freeHours = hours.filter((hour) => !hour.color);
+  console.log("hours", hours)
+  const freeHours = hours?.filter((hour) => !hour.color) ?? [];
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
