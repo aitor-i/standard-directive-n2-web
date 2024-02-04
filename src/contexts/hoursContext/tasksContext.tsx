@@ -60,7 +60,7 @@ export function TasksContextProvider({ children }: Props) {
 
   const fetchTasks = async (token: string) => {
 
-    const url = new URL("http://localhost:4040/tasks/get-tasks")
+    const url = new URL(`${baseUrl}/tasks/get-tasks`)
     url.searchParams.append("token", token);
 
     fetch(url.toString()).then(response => {

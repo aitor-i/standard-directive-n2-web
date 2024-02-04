@@ -94,7 +94,7 @@ export function HoursContextProvider({ children }: Props) {
 
     const dateString = getWorkingDateString(isEditMode);
 
-    const url = new URL("http://localhost:4040/calendar/get-calendar-by-date")
+    const url = new URL(`${baseUrl}/calendar/get-calendar-by-date`)
     const date = dateString
     url.searchParams.append("date", date);
     url.searchParams.append("token", token);
