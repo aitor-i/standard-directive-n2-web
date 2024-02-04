@@ -82,6 +82,7 @@ export function HoursContextProvider({ children }: Props) {
 
   const onSetHours = (hoursToSet: CalendarHour[]) => {
     const token = window.localStorage.getItem("token");
+    if (hoursToSet.length === 0) return
 
     setHours(hoursToSet);
     setA((p) => !p);
@@ -107,7 +108,10 @@ export function HoursContextProvider({ children }: Props) {
       return response.json();
     })
       .then((data: ApiResponse) => {
-        setHours(data.calendar ?? []);
+        if (data.calendar?.length !== 0 && data?.calendar) {
+
+          setHours(data.calendar);
+        }
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
