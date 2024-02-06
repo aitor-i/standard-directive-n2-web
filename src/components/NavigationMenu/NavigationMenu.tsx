@@ -5,6 +5,7 @@ export default function NavigationMenu() {
     <div className="flex gap-4">
       <Link href={"/"}>Home</Link>
       <Link href={"/calendar"}>Calendar</Link>
+      <Link href={'/tracker'} >Tracker</Link>
     </div>
   );
 }
