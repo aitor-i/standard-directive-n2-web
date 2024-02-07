@@ -2,6 +2,7 @@
 import DayCalendar from "@/components/DayCalendar/DayCalendar";
 import NavigationMenu from "@/components/NavigationMenu/NavigationMenu";
 import TaskLists from "@/components/TaskLists/TaskLists";
+import { UserOptions } from "@/components/UserOptions/UserOptions";
 import { HoursContextProvider } from "@/contexts/hoursContext/hoursContext";
 import React from "react";
 
@@ -15,6 +16,9 @@ export default function calendarPage() {
       >
         <p>{dateString}</p>
         <NavigationMenu />
+        <div className="absolute right-2">
+          <UserOptions />
+        </div>
       </div>
       <HoursContextProvider>
         <div key="body" className="flex flex-1">
