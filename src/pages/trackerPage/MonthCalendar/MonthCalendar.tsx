@@ -1,14 +1,24 @@
-import { generateDayObjectsForCurrentMonth } from "@/application/generateDayObjectsForCurrentMonth/generateDayObjectsForCurrentMonth";
+'use client'
+import { DayObject, generateDayObjectsForCurrentMonth } from "@/application/generateDayObjectsForCurrentMonth/generateDayObjectsForCurrentMonth";
 import { DaySquare } from "../DaySquare/DaySquare";
+import { useEffect, useState } from "react";
 
-export const MonthCalendar: React.FC = () => {
 
-  const daysOfTheMonth = generateDayObjectsForCurrentMonth("red")
+interface Props {
 
-  return <div>{
-    daysOfTheMonth.map((day) => {
+  tasksName: String
+}
 
-      return <DaySquare key={day.day} color={day.color} />
+export const MonthCalendar = ({ tasksName }: Props) => {
+  const [daysInMonth, setdaysInMonth] = useState<DayObject[]>([]);
+
+  const today = new Date();
+
+  const onclickCompleteHandler = () => {
+
+    const updatedDays = daysInMonth.map((day) => {
+      if (day.day === today.getDate()) day.completed = true;
+      return day
     })
 
     setdaysInMonth(updatedDays)
@@ -23,10 +33,10 @@ export const MonthCalendar: React.FC = () => {
 
     }, 0)
 
-    return (completed / days.length).toFixed()
+    return (completed / days.length).toFixed(2)
   }
 
-  const percentage = getCompletedPercentage(daysInMonth).toFixed(2) / 100
+  const percentage = +getCompletedPercentage(daysInMonth) * 100
 
   useEffect(() => {
 
@@ -35,7 +45,7 @@ export const MonthCalendar: React.FC = () => {
   }, [])
 
   return <div className="flex items-center h-min gap-4">
-    <p>Task Name</p>
+    <p>{tasksName}</p>
     <div className="flex items-center h-min">
       {
         daysInMonth.map((day) => {
@@ -44,7 +54,7 @@ export const MonthCalendar: React.FC = () => {
       }
     </div>
 
-    <p>{}</p>
-    <button className="primary" onClick={onclickCompleteHandler}>Complete</button>
+    <p>%{percentage}</p>
+    <button className="primary" onClick={onclickCompleteHandler}>!</button>
   </div>;
 };
