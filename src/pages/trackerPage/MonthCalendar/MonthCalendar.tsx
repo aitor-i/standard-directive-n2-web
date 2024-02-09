@@ -8,11 +8,11 @@ interface Props {
   tasksName: String
   days: DayObject[]
   trackId: string
-  onCompleteClicl: (trackId: string) => void
+  onCompleteClick: (trackId: string) => void
 
 }
 
-export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClicl }: Props) => {
+export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClick }: Props) => {
 
   const getCompletedPercentage = (days: DayObject[]) => {
     const completed = days.reduce((prevValue, day) => {
@@ -24,8 +24,8 @@ export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClicl }: Pro
 
   const percentage = +getCompletedPercentage(days) * 100
 
-  return <div className="flex items-center h-min gap-4">
-    <p>{tasksName}</p>
+  return <div className="flex w-screen justify-between pl-4 pr-4 items-center h-min gap-4">
+    <p className="w-44">{tasksName}</p>
     <div className="flex items-center h-min">
       {
         days.map((day) => {
@@ -34,8 +34,7 @@ export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClicl }: Pro
       }
     </div>
 
-    <p>%{percentage}</p>
-    <p>{trackId}</p>
-    <button className="primary" onClick={() => onCompleteClicl(trackId)}>!</button>
+    <p className="w-16">%{percentage}</p>
+    <button className="primary" onClick={() => onCompleteClick(trackId)}>!</button>
   </div>;
 };

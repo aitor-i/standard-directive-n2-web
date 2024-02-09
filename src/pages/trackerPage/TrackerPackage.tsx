@@ -35,8 +35,6 @@ export default function TrackerPackage() {
   }
 
   const onCompletedCkickHandler = (trackId: string) => {
-    debugger
-
     const updatedDays: DayObject[] = trackers.filter(track => track.id === trackId)[0].days.map((day) => {
       const today = new Date()
       if (day.day === today.getDate()) day.completed = true;
@@ -66,7 +64,7 @@ export default function TrackerPackage() {
         </div>
       </div>
       <div className="flex flex-1 flex-col">
-        {trackers.map(track => <MonthCalendar trackId={track.id} tasksName={track.title} onCompleteClicl={onCompletedCkickHandler} key={track.id} days={track.days} />)}
+        {trackers.map(track => <MonthCalendar trackId={track.id} tasksName={track.title} onCompleteClick={onCompletedCkickHandler} key={track.id} days={track.days} />)}
       </div>
 
       <h5>Add tracker</h5>
