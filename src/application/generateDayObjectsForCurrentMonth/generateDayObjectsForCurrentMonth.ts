@@ -1,7 +1,8 @@
 
 export type DayObject = {
   completed: boolean;
-  date: { year: number; month: number };
+  year: number;
+  month: number;
   day: number;
   color: string;
 };
@@ -18,7 +19,8 @@ export function generateDayObjectsForCurrentMonth(color: string = 'green'): DayO
   for (let day = 1; day <= daysInMonth; day++) {
     dayObjects.push({
       completed: false,
-      date: { year: currentYear, month: currentMonth + 1 }, // Adjust month to be 1-indexed for the object
+      year: currentYear,
+      month: currentMonth + 1, // Adjust month to be 1-indexed for the object
       day: day,
       color: color,
     });
