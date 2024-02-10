@@ -71,6 +71,12 @@ li{
 .debug {
   border: 1px solid red;
 }
+.color-grey {
+  --color: #E5E5E5; /* Green */
+  background-color: var(--color);
+  border-color: var(--color);
+  color: #fff;
+}
 
 .color-green {
   --color: #4caf50; /* Green */
