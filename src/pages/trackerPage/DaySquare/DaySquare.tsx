@@ -20,15 +20,17 @@ export const DaySquare = ({ color, isCompleted, day }: SquareProps) => {
   }
 
 
+  const bgColor = isCompleted ? `color-${color}` : `color-grey`
 
   return (
     <div className="relative h-min p-0 m-0  w-min">
       <div
+        className={bgColor}
         onClick={onBoxClickHandler}
         style={{
           width: '20px',
           height: '20px',
-          backgroundColor: isCompleted ? color : '#E5E5E5',
+          // backgroundColor: isCompleted ? color : '#E5E5E5',
           display: 'inline-block',
           margin: '2px',
           borderRadius: '5px',
