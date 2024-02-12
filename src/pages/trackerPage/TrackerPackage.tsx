@@ -8,9 +8,10 @@ import { generateRandomID } from '@/application/generateRandomId/generateRandomI
 import { colors } from "@/domain/colors/colors";
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch';
 import { redirect } from "next/navigation"
+import { ApiResponse } from '@/domain/models/ApiResponse';
 
 
-interface TrackerObject {
+export interface TrackerObject {
   title: string,
   id: string,
   days: DayObject[]
@@ -25,7 +26,8 @@ interface SaveTrackersBody {
 
 export default function TrackerPackage() {
   const [trackers, setTrackers] = useState<TrackerObject[]>([])
-  const { fetcher: poster, response: postResponse, fetchingStatus: postingStatus } = useFetch();
+  const { fetcher: poster, response: postResponse, fetchingStatus: postingStatus } = useFetch<ApiResponse>();
+  const { fetcher, response, responseObject } = useFetch<ApiResponse>()
   const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
 
   const saveTrackersHander = (token: string, trackers: TrackerObject[]) => {
@@ -85,12 +87,37 @@ export default function TrackerPackage() {
 
   }
 
+  const getTracker = async () => {
+
+    const token = window.localStorage.getItem("token");
+    if (!token) redirect("/login");
+
+    const url = new URL(`${baseUrl}/trackers/get-trackers`)
+    url.searchParams.append("token", token);
+
+    const fetchParams: FetchParams = {
+      url: url.toString(),
+      method: 'GET',
+      headers: { "Content-Type": "application/json" },
+    }
+    await fetcher(fetchParams)
+    setTrackers(response?.trackers ?? [])
+
+  }
+
+  useEffect(() => {
+    if (response?.trackers) {
+      setTrackers(response.trackers)
+    }
+  }, [response])
+
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (!token) redirect("/login");
     saveTrackersHander(token, trackers)
 
-  }, [trackers])
+    getTracker()
+  }, [])
 
   const dateString = new Date().toDateString();
   return (
