@@ -28,6 +28,7 @@ export default function TrackerPackage() {
   const [trackers, setTrackers] = useState<TrackerObject[]>([])
   const { fetcher: poster, response: postResponse, fetchingStatus: postingStatus } = useFetch<ApiResponse>();
   const { fetcher, response, responseObject } = useFetch<ApiResponse>()
+  const { fetcher: deleter, response: deleteResponse, responseObject: deleteResponseObject } = useFetch<ApiResponse>()
   const baseUrl = process.env.NEXT_PUBLIC_AUTH_API_BASE_URL;
 
   const saveTrackersHander = (token: string, trackers: TrackerObject[]) => {
@@ -64,6 +65,25 @@ export default function TrackerPackage() {
     }
 
     setTrackers(trackers => [...trackers, tracker])
+  }
+
+  const deleteTracker = async (id: string) => {
+
+    const token = window.localStorage.getItem("token");
+    if (!token) redirect("/login");
+
+    const url = new URL(`${baseUrl}/trackers/delete-trackers`)
+    url.searchParams.append("id", id);
+    url.searchParams.append("token", token);
+
+    const fetchParams: FetchParams = {
+      url: url.toString(),
+      method: 'DELETE',
+      headers: { "Content-Type": "application/json" }
+    }
+    await deleter(fetchParams)
+    setTrackers(response?.trackers ?? [])
+
   }
 
 
@@ -133,7 +153,7 @@ export default function TrackerPackage() {
         </div>
       </div>
       <div className="flex flex-1 flex-col">
-        {trackers.map(track => <MonthCalendar trackId={track.id} tasksName={track.title} onCompleteClick={onCompletedCkickHandler} key={track.id} days={track.days} />)}
+        {trackers.map(track => <MonthCalendar trackId={track.id} tasksName={track.title} onDelete={deleteTracker} onCompleteClick={onCompletedCkickHandler} key={track.id} days={track.days} />)}
 
         <div className='self-center'>
           <h5>Add tracker</h5>

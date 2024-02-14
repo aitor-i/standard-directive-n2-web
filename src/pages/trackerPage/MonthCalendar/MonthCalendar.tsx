@@ -9,10 +9,12 @@ interface Props {
   days: DayObject[]
   trackId: string
   onCompleteClick: (trackId: string) => void
+  onDelete: (trackId: string) => void
 
 }
 
-export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClick }: Props) => {
+
+export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClick, onDelete }: Props) => {
 
   const getCompletedPercentage = (days: DayObject[]) => {
     const completed = days.reduce((prevValue, day) => {
@@ -36,5 +38,6 @@ export const MonthCalendar = ({ tasksName, days, trackId, onCompleteClick }: Pro
 
     <p className="w-16">%{percentage}</p>
     <button className="primary" onClick={() => onCompleteClick(trackId)}>!</button>
-  </div>;
+    <button className="danger" onClick={() => onDelete(trackId)}>!</button>
+  </div >;
 };
