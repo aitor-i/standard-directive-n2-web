@@ -1,8 +1,6 @@
-'use client'
-import LoginPage from '@/pages/LoginPage/LoginPage'
+"use client";
+import LoginPage from "@/PageComponent/LoginPage/LoginPage";
 
 export default function page() {
-  return (
-    <LoginPage />
-  )
+  return <LoginPage />;
 }

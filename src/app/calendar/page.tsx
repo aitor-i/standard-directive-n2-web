@@ -1,5 +1,5 @@
 "use client";
-import CalendarPage from "@/pages/calendarPage/calendarPage";
+import CalendarPage from "@/PageComponent/calendarPage/calendarPage";
 
 export default function page() {
   return <CalendarPage />;
