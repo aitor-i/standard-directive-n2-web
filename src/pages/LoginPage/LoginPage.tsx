@@ -1,4 +1,5 @@
 import { isValidEmail } from '@/application/isValidEmail/isValidEmail';
+import Footer from '@/components/Footer/Footer';
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
 import { Toast } from '@/components/Toast/Toast';
 import { FetchParams, useFetch } from '@/hooks/useFetch/useFeltch'
@@ -43,7 +44,9 @@ export default function LoginPage() {
     redirect("/calendar")
   }
   return (<section className='flex-1, flex flex-col  h-screen'>
-    <NavigationMenu />
+    <div className="fixed top-4 right-4">
+      <NavigationMenu />
+    </div>
     {response?.message && <Toast message={response.message} type={responseObject?.ok ? 't-success' : 't-error'} />}
     <div className='flex mt-20 flex-1  self-center flex-col w-1/3'>
 
@@ -68,5 +71,6 @@ export default function LoginPage() {
       </form>
     </div>
 
+    <Footer />
   </section>)
 }
