@@ -5,6 +5,7 @@ import React, { useRef, useState } from 'react'
 import { redirect } from "next/navigation"
 import { passwordValidation } from '@/application/passwordValidation/passwordValidation';
 import { Toast } from '@/components/Toast/Toast';
+import Footer from '@/components/Footer/Footer';
 
 interface RegisterResponse {
   message: string,
@@ -67,7 +68,9 @@ export default function RegisterPage(props: {}) {
   }
 
   return (<section className='flex-1, flex flex-col  h-screen'>
-    <NavigationMenu />
+    <div className="fixed top-4 right-4">
+      <NavigationMenu />
+    </div>
     {
 
       response?.message && <Toast type={responseObject?.ok ? 't-success' : 't-error'} message={response.message} />
@@ -108,5 +111,6 @@ export default function RegisterPage(props: {}) {
       </form>
     </div>
 
+    <Footer />
   </section>)
 }
