@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import NavigationMenu from '@/components/NavigationMenu/NavigationMenu';
-import AddEventImg from '../../../public/media/Calendar-add-event.jpg';
-import CompleteTaskImg from '../../../public/media/Events-done.jpg';
+import AddEventImg from '@/../public/media/Calendar-add-event.jpg';
+import CompleteTaskImg from '@/../public/media/Events-done.jpg';
 import { Roboto_Mono } from 'next/font/google'
+import NavigationMenu from '@/components/NavigationMenu/NavigationMenu';
 
 const robotoMono = Roboto_Mono({
   weight: '400',
