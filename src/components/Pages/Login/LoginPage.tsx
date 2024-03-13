@@ -1,3 +1,5 @@
+'use client'
+
 import { isValidEmail } from '@/application/isValidEmail/isValidEmail';
 import Footer from '@/components/Footer/Footer';
 import NavigationMenu from '@/components/NavigationMenu/NavigationMenu'
@@ -43,34 +45,35 @@ export default function LoginPage() {
 
     redirect("/calendar")
   }
-  return (<section className='flex-1, flex flex-col  h-screen'>
-    <div className="fixed top-4 right-4">
-      <NavigationMenu />
-    </div>
-    {response?.message && <Toast message={response.message} type={responseObject?.ok ? 't-success' : 't-error'} />}
-    <div className='flex mt-20 flex-1  self-center flex-col w-1/3'>
+  return (
+    <section className=' flex flex-col h-screen'>
+      <div className="fixed top-4 right-4">
+        <NavigationMenu />
+      </div>
+      {response?.message && <Toast message={response.message} type={responseObject?.ok ? 't-success' : 't-error'} />}
+      <div className='flex mt-20 flex-1  self-center flex-col w-1/2'>
 
-      <h4>Login</h4>
-      <form onSubmit={submitHandler} className=' flex flex-col gap-4'>
-        <section className='flex-col flex'>
-          <label>Username</label>
-          <input type="text" name="username" />
-        </section>
-        <section className='flex-col flex'>
-          <label>Password</label>
-          <input type="password" name="password" />
-        </section>
-
-        <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/register"}>Register</Link>
-        {fetchingStatus === "loading" ? 'Loading' :
-
-          <section className='flex justify-end'>
-            <button className='primary' type='submit'>Login</button>
+        <h4>Login</h4>
+        <form onSubmit={submitHandler} className=' flex flex-col gap-4'>
+          <section className='flex-col flex'>
+            <label>Username</label>
+            <input type="text" name="username" />
           </section>
-        }
-      </form>
-    </div>
+          <section className='flex-col flex'>
+            <label>Password</label>
+            <input type="password" name="password" />
+          </section>
 
-    <Footer />
-  </section>)
+          <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/register"}>Register</Link>
+          {fetchingStatus === "loading" ? 'Loading' :
+
+            <section className='flex justify-end'>
+              <button className='primary' type='submit'>Login</button>
+            </section>
+          }
+        </form>
+      </div>
+
+      <Footer />
+    </section>)
 }
