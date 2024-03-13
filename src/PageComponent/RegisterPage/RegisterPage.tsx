@@ -75,7 +75,7 @@ export default function RegisterPage(props: {}) {
 
       response?.message && <Toast type={responseObject?.ok ? 't-success' : 't-error'} message={response.message} />
     }
-    <div className='flex mt-20 flex-1  self-center flex-col w-1/2 lg:w-1/3 '>
+    <div className='flex mt-20 flex-1  self-center flex-col w-full p-4 md:w-2/3 lg:w-1/3'>
 
       <h4>Register</h4>
       <form onSubmit={submitHandler} className=' flex flex-col gap-4'>
