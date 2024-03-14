@@ -36,6 +36,7 @@ export default function RegisterPage(props: {}) {
     const rePassword = formData.get("confirm-password")?.valueOf() ?? "";
     const email = formData.get("email")?.valueOf() ?? "";
     const reEmail = formData.get("re-email")?.valueOf() ?? "";
+    const code = formData.get("code")?.valueOf() ?? "";
 
     const passwordValidationResponse = passwordValidation(password.toString());
 
@@ -55,7 +56,7 @@ export default function RegisterPage(props: {}) {
       url: `${baseUrl}/users/register-user`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: { username, password, email }
+      body: { username, password, email, code }
 
     }
 
@@ -99,6 +100,10 @@ export default function RegisterPage(props: {}) {
         <section className='flex-col flex'>
           <label>Confirm password</label>
           <input ref={rePasswordRef} type="password" name="confirm-password" />
+        </section>
+        <section className='flex-col flex'>
+          <label>Code</label>
+          <input type="text" name="code" />
         </section>
 
         <Link className='text-xs text-blue-600 border-blue-600 border-b w-fit' href={"/login"}>Login</Link>
