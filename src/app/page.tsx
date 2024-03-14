@@ -27,7 +27,7 @@ export default function Home() {
               <i className='text-gray-700'>Jocko Willink</i>
             </div>
             <div className=" gap-4 min-[400px]  overflow-hidden rounded-s border-gray-800 card">
-              <iframe className='rounded-s' width="580" height="315"
+              <iframe className='rounded-s w-full h-60 md:h[315]' width="" height="315"
                 src="https://www.youtube.com/embed/lqMthruPavU?si=WOS4whMaHMZuzjGc&amp;clip=UgkxOZYzF4_l3c61N5upjo5t82d7EXlwVx3r&amp;clipt=EIDoBxiR7Ak"
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
